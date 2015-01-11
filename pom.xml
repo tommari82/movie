@@ -19,7 +19,7 @@
 		<java.source>1.7</java.source>
 		<java.target>1.7</java.target>
 		<java.encoding>UTF-8</java.encoding>
-		<wicket.version>6.16.0</wicket.version>
+		<wicket.version>6.18.0</wicket.version>
 		<jetty.version>9.2.2.v20140723</jetty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.org.hibernate>4.2.7.Final</version.org.hibernate>

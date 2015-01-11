@@ -1,6 +1,7 @@
 package org.tmsoft.movie.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created 05.10.14
@@ -18,6 +19,7 @@ public class UsersEntity {
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
+	private List<UsersGroupEntity> usersGroupEntities;
 
 	@Id
 	@Column(name = "ID")
@@ -87,6 +89,15 @@ public class UsersEntity {
 
 	public void setDeleted(short deleted) {
 		this.deleted = deleted;
+	}
+
+	@OneToMany(mappedBy = "usersEntity")
+	public List<UsersGroupEntity> getUsersGroupEntities() {
+		return usersGroupEntities;
+	}
+
+	public void setUsersGroupEntities(List<UsersGroupEntity> usersGroupEntities) {
+		this.usersGroupEntities = usersGroupEntities;
 	}
 
 	@Override

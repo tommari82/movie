@@ -15,6 +15,8 @@ public class UsersGroupEntity {
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
+	private UsersEntity usersEntity;
+	private GroupsEntity groupsEntity;
 
 	@Id
 	@Column(name = "ID")
@@ -55,6 +57,28 @@ public class UsersGroupEntity {
 	public void setDeleted(short deleted) {
 		this.deleted = deleted;
 	}
+	@ManyToOne
+	@JoinColumn(name = "id_users", nullable = false)
+	public UsersEntity getUsersEntity() {
+		return usersEntity;
+	}
+
+	public void setUsersEntity(UsersEntity usersEntity) {
+		this.usersEntity = usersEntity;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "id_groups", nullable = false)
+	public GroupsEntity getGroupsEntity() {
+		return groupsEntity;
+	}
+
+	public void setGroupsEntity(GroupsEntity groupsEntity) {
+		this.groupsEntity = groupsEntity;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "id_groups", nullable = false)
 
 	@Override
 	public boolean equals(Object o) {

@@ -1,6 +1,7 @@
 package org.tmsoft.movie.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created 05.10.14
@@ -9,7 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "GROUPS", schema = "MOVIE", catalog = "MOVIE-DEV")
+@Table(name = "GROUPS", schema = "MOVIE")
 public class GroupsEntity {
 	private long id;
 	private String code;
@@ -18,6 +19,7 @@ public class GroupsEntity {
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
+	private List<UsersGroupEntity> usersGroupEntities; 
 
 	@Id
 	@Column(name = "ID")
@@ -87,6 +89,15 @@ public class GroupsEntity {
 
 	public void setDeleted(short deleted) {
 		this.deleted = deleted;
+	}
+
+	@OneToMany(mappedBy = "groupsEntity")
+	public List<UsersGroupEntity> getUsersGroupEntities() {
+		return usersGroupEntities;
+	}
+
+	public void setUsersGroupEntities(List<UsersGroupEntity> usersGroupEntities) {
+		this.usersGroupEntities = usersGroupEntities;
 	}
 
 	@Override
