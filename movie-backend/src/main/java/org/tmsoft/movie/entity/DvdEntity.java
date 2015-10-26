@@ -6,30 +6,32 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Created 05.10.14
+ * Created 26.10.15
  *
  * @author Tomas Marianek
  */
 
 @Entity
-@Table(name = "GROUP_RIGHTS", schema = "MOVIE")
-public class GroupRightsEntity implements Serializable{
-
-	private static final long serialVersionUID = -3222886813386928493L;
+@Table(name = "DVD", schema = "MOVIE", catalog = "MOVIE-DEV")
+public class DvdEntity implements Serializable{
+	private static final long serialVersionUID = -8839117451912667347L;
 	private long id;
+	private Long number;
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
-	private RightsEntity rightsEntity;
-	private GroupsEntity groupsEntity;
+	private List<BorrowEntity>  borrowEntities;
+	private MovieEntity movieEntity;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GROUPRIGHTSSQ")
-	@SequenceGenerator(name = "GROUPRIGHTSSQ", sequenceName = "movie.SQ_GROUP_RIGHTS", initialValue = 1, schema = "movie", allocationSize = 1)
-	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DVDSQ")
+	@SequenceGenerator(name = "DVDSQ", sequenceName = "movie.SQ_DVD", initialValue = 1, schema = "movie", allocationSize = 1)
+
+	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {
 		return id;
 	}
@@ -39,9 +41,17 @@ public class GroupRightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "INS_USERS")
+	@Column(name = "NUMBER", nullable = true, insertable = true, updatable = true)
+	public Long getNumber() {
+		return number;
+	}
 
+	public void setNumber(Long number) {
+		this.number = number;
+	}
 
+	@Basic
+	@Column(name = "INS_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getInsUsers() {
 		return insUsers;
 	}
@@ -51,7 +61,7 @@ public class GroupRightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "MODIF_USERS")
+	@Column(name = "MODIF_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getModifUsers() {
 		return modifUsers;
 	}
@@ -61,7 +71,7 @@ public class GroupRightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "DELETED")
+	@Column(name = "DELETED", nullable = false, insertable = true, updatable = true)
 	public short getDeleted() {
 		return deleted;
 	}
@@ -70,26 +80,25 @@ public class GroupRightsEntity implements Serializable{
 		this.deleted = deleted;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "ID_RIGHT", referencedColumnName = "ID", nullable = true)
-	public RightsEntity getRightsEntity() {
-		return rightsEntity;
+	@OneToMany(mappedBy = "dvdEntity")
+	public List<BorrowEntity> getBorrowEntities() {
+		return borrowEntities;
 	}
 
-	public void setRightsEntity(RightsEntity rightsEntity) {
-		this.rightsEntity = rightsEntity;
+	public void setBorrowEntities(List<BorrowEntity> borrowEntities) {
+		this.borrowEntities = borrowEntities;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "id_group",referencedColumnName = "id", nullable = true)
-	public GroupsEntity getGroupsEntity() {
-		return groupsEntity;
+
+	@OneToOne
+	@JoinColumn(name = "ID_MOVIE")
+	public MovieEntity getMovieEntity() {
+		return movieEntity;
 	}
 
-	public void setGroupsEntity(GroupsEntity groupsEntity) {
-		this.groupsEntity = groupsEntity;
+	public void setMovieEntity(MovieEntity movieEntity) {
+		this.movieEntity = movieEntity;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -102,14 +111,14 @@ public class GroupRightsEntity implements Serializable{
 		if (obj.getClass() != getClass()) {
 			return false;
 		}
-		GroupRightsEntity rhs = (GroupRightsEntity) obj;
+		DvdEntity rhs = (DvdEntity) obj;
 		return new EqualsBuilder()
 				.append(this.id, rhs.id)
+				.append(this.number, rhs.number)
 				.append(this.insUsers, rhs.insUsers)
 				.append(this.modifUsers, rhs.modifUsers)
 				.append(this.deleted, rhs.deleted)
-				.append(this.rightsEntity, rhs.rightsEntity)
-				.append(this.groupsEntity, rhs.groupsEntity)
+				.append(this.borrowEntities, rhs.borrowEntities)
 				.isEquals();
 	}
 
@@ -117,11 +126,11 @@ public class GroupRightsEntity implements Serializable{
 	public int hashCode() {
 		return new HashCodeBuilder()
 				.append(id)
+				.append(number)
 				.append(insUsers)
 				.append(modifUsers)
 				.append(deleted)
-				.append(rightsEntity)
-				.append(groupsEntity)
+				.append(borrowEntities)
 				.toHashCode();
 	}
 
@@ -129,11 +138,11 @@ public class GroupRightsEntity implements Serializable{
 	public String toString() {
 		return new ToStringBuilder(this)
 				.append("id", id)
+				.append("number", number)
 				.append("insUsers", insUsers)
 				.append("modifUsers", modifUsers)
 				.append("deleted", deleted)
-				.append("rightsEntity", rightsEntity)
-				.append("groupsEntity", groupsEntity)
+				.append("borrowEntities", borrowEntities)
 				.toString();
 	}
 }

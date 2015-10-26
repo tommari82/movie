@@ -5,14 +5,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by tomasmrianek on 05.10.14.
  */
 @Entity
 @Table(name = "REGISTER_ITEM", schema = "MOVIE")
-public class RegisterItemEntity {
+public class RegisterItemEntity implements Serializable{
 
+	private static final long serialVersionUID = -289536111010295153L;
 	private Long id;
 	private String code;
 	private String name;
@@ -96,7 +98,7 @@ public class RegisterItemEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "id_REGISTER", nullable = false)
+	@JoinColumn(name = "id_REGISTER", nullable = false, referencedColumnName = "ID")
 	public RegisterEntity getRegisterEntity() {
 		return registerEntity;
 	}

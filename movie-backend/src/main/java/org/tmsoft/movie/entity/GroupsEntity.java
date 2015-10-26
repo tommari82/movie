@@ -1,6 +1,11 @@
 package org.tmsoft.movie.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +16,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "GROUPS", schema = "MOVIE")
-public class GroupsEntity {
+public class GroupsEntity implements Serializable{
+
+	private static final long serialVersionUID = 2550239438064291165L;
 	private long id;
 	private String code;
 	private String name;
@@ -19,9 +26,13 @@ public class GroupsEntity {
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
-	private List<UsersGroupEntity> usersGroupEntities; 
+	private List<GroupRightsEntity> groupRightsEntities;
+	private List<UsersGroupEntity> usersGroupEntities;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GROUPSSQ")
+	@SequenceGenerator(name = "GROUPSSQ", sequenceName = "movie.sq_GROUPs", initialValue = 1, schema = "movie", allocationSize = 1)
+
 	@Column(name = "ID")
 	public long getId() {
 		return id;
@@ -92,6 +103,15 @@ public class GroupsEntity {
 	}
 
 	@OneToMany(mappedBy = "groupsEntity")
+	public List<GroupRightsEntity> getGroupRightsEntities() {
+		return groupRightsEntities;
+	}
+
+	public void setGroupRightsEntities(List<GroupRightsEntity> groupRightsEntities) {
+		this.groupRightsEntities = groupRightsEntities;
+	}
+
+	@OneToMany(mappedBy ="groupsEntity")
 	public List<UsersGroupEntity> getUsersGroupEntities() {
 		return usersGroupEntities;
 	}
@@ -100,33 +120,59 @@ public class GroupsEntity {
 		this.usersGroupEntities = usersGroupEntities;
 	}
 
+
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		GroupsEntity that = (GroupsEntity) o;
-
-		if (deleted != that.deleted) return false;
-		if (id != that.id) return false;
-		if (code != null ? !code.equals(that.code) : that.code != null) return false;
-		if (description != null ? !description.equals(that.description) : that.description != null) return false;
-		if (insUsers != null ? !insUsers.equals(that.insUsers) : that.insUsers != null) return false;
-		if (modifUsers != null ? !modifUsers.equals(that.modifUsers) : that.modifUsers != null) return false;
-		if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-		return true;
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+		GroupsEntity rhs = (GroupsEntity) obj;
+		return new EqualsBuilder()
+				.append(this.id, rhs.id)
+				.append(this.code, rhs.code)
+				.append(this.name, rhs.name)
+				.append(this.description, rhs.description)
+				.append(this.insUsers, rhs.insUsers)
+				.append(this.modifUsers, rhs.modifUsers)
+				.append(this.deleted, rhs.deleted)
+				.append(this.groupRightsEntities, rhs.groupRightsEntities)
+				.append(this.usersGroupEntities, rhs.usersGroupEntities)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		int result = (int) (id ^ (id >>> 32));
-		result = 31 * result + (code != null ? code.hashCode() : 0);
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (description != null ? description.hashCode() : 0);
-		result = 31 * result + (insUsers != null ? insUsers.hashCode() : 0);
-		result = 31 * result + (modifUsers != null ? modifUsers.hashCode() : 0);
-		result = 31 * result + (int) deleted;
-		return result;
+		return new HashCodeBuilder()
+				.append(id)
+				.append(code)
+				.append(name)
+				.append(description)
+				.append(insUsers)
+				.append(modifUsers)
+				.append(deleted)
+				.append(groupRightsEntities)
+				.append(usersGroupEntities)
+				.toHashCode();
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("code", code)
+				.append("name", name)
+				.append("description", description)
+				.append("insUsers", insUsers)
+				.append("modifUsers", modifUsers)
+				.append("deleted", deleted)
+				.append("groupRightsEntities", groupRightsEntities)
+				.append("usersGroupEntities", usersGroupEntities)
+				.toString();
 	}
 }

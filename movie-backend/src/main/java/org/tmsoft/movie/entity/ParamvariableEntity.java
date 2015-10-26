@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -16,7 +17,9 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "PARAMVARIABLE", schema = "MOVIE")
-public class ParamvariableEntity {
+public class ParamvariableEntity implements Serializable {
+
+	private static final long serialVersionUID = -4191592616920344981L;
 	private long id;
 	private String nameGroup;
 	private String nameVar;
@@ -30,6 +33,8 @@ public class ParamvariableEntity {
 	private short deleted;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARAMVARIABLESQ")
+	@SequenceGenerator(name = "PARAMVARIABLESQ", sequenceName = "movie.sq_paramvariable", initialValue = 1, schema = "movie", allocationSize = 1)
 	@Column(name = "ID")
 	public long getId() {
 		return id;

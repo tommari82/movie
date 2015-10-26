@@ -1,6 +1,11 @@
 package org.tmsoft.movie.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,8 +15,10 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "USERS", schema = "MOVIE", catalog = "MOVIE-DEV")
-public class UsersEntity {
+@Table(name = "USERS", schema = "MOVIE")
+public class UsersEntity implements Serializable{
+
+	private static final long serialVersionUID = 8005442524631051689L;
 	private long id;
 	private Long idPerson;
 	private String username;
@@ -22,6 +29,9 @@ public class UsersEntity {
 	private List<UsersGroupEntity> usersGroupEntities;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERSSQ")
+	@SequenceGenerator(name = "USERSSQ", sequenceName = "movie.sq_users", initialValue = 1, schema = "movie", allocationSize = 1)
+
 	@Column(name = "ID")
 	public long getId() {
 		return id;
@@ -100,33 +110,57 @@ public class UsersEntity {
 		this.usersGroupEntities = usersGroupEntities;
 	}
 
+
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		UsersEntity that = (UsersEntity) o;
-
-		if (deleted != that.deleted) return false;
-		if (id != that.id) return false;
-		if (idPerson != null ? !idPerson.equals(that.idPerson) : that.idPerson != null) return false;
-		if (insUsers != null ? !insUsers.equals(that.insUsers) : that.insUsers != null) return false;
-		if (modifUsers != null ? !modifUsers.equals(that.modifUsers) : that.modifUsers != null) return false;
-		if (pass != null ? !pass.equals(that.pass) : that.pass != null) return false;
-		if (username != null ? !username.equals(that.username) : that.username != null) return false;
-
-		return true;
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+		UsersEntity rhs = (UsersEntity) obj;
+		return new EqualsBuilder()
+				.append(this.id, rhs.id)
+				.append(this.idPerson, rhs.idPerson)
+				.append(this.username, rhs.username)
+				.append(this.pass, rhs.pass)
+				.append(this.insUsers, rhs.insUsers)
+				.append(this.modifUsers, rhs.modifUsers)
+				.append(this.deleted, rhs.deleted)
+				.append(this.usersGroupEntities, rhs.usersGroupEntities)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		int result = (int) (id ^ (id >>> 32));
-		result = 31 * result + (idPerson != null ? idPerson.hashCode() : 0);
-		result = 31 * result + (username != null ? username.hashCode() : 0);
-		result = 31 * result + (pass != null ? pass.hashCode() : 0);
-		result = 31 * result + (insUsers != null ? insUsers.hashCode() : 0);
-		result = 31 * result + (modifUsers != null ? modifUsers.hashCode() : 0);
-		result = 31 * result + (int) deleted;
-		return result;
+		return new HashCodeBuilder()
+				.append(id)
+				.append(idPerson)
+				.append(username)
+				.append(pass)
+				.append(insUsers)
+				.append(modifUsers)
+				.append(deleted)
+				.append(usersGroupEntities)
+				.toHashCode();
+	}
+
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("idPerson", idPerson)
+				.append("username", username)
+				.append("pass", pass)
+				.append("insUsers", insUsers)
+				.append("modifUsers", modifUsers)
+				.append("deleted", deleted)
+				.append("usersGroupEntities", usersGroupEntities)
+				.toString();
 	}
 }

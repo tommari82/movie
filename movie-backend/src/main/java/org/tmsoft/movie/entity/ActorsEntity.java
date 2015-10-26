@@ -8,28 +8,28 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created 05.10.14
+ * Created 26.10.15
  *
  * @author Tomas Marianek
  */
 
 @Entity
-@Table(name = "USERS_GROUP", schema = "MOVIE")
-public class UsersGroupEntity implements Serializable{
-
-	private static final long serialVersionUID = 2799435702795325078L;
+@Table(name = "ACTORS", schema = "MOVIE", catalog = "MOVIE-DEV")
+public class ActorsEntity implements Serializable{
+	private static final long serialVersionUID = 7354512670005234418L;
 	private long id;
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
-	private UsersEntity usersEntity;
-	private GroupsEntity groupsEntity;
+	private ActorEntity actorEntity;
+	private MovieEntity movieEntity;
+
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERSGROUPSQ")
-	@SequenceGenerator(name = "USERSGROUPSQ", sequenceName = "movie.sq_USERS_GROUP", initialValue = 1, schema = "movie", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACTORSSQ")
+	@SequenceGenerator(name = "ACTORSSQ", sequenceName = "movie.SQ_ACTORS", initialValue = 1, schema = "movie", allocationSize = 1)
 
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {
 		return id;
 	}
@@ -39,7 +39,7 @@ public class UsersGroupEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "INS_USERS")
+	@Column(name = "INS_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getInsUsers() {
 		return insUsers;
 	}
@@ -49,7 +49,7 @@ public class UsersGroupEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "MODIF_USERS")
+	@Column(name = "MODIF_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getModifUsers() {
 		return modifUsers;
 	}
@@ -59,7 +59,7 @@ public class UsersGroupEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "DELETED")
+	@Column(name = "DELETED", nullable = false, insertable = true, updatable = true)
 	public short getDeleted() {
 		return deleted;
 	}
@@ -68,23 +68,26 @@ public class UsersGroupEntity implements Serializable{
 		this.deleted = deleted;
 	}
 
+
 	@ManyToOne
-	@JoinColumn(name = "id_users",referencedColumnName = "id", nullable = true)
-	public UsersEntity getUsersEntity() {
-		return usersEntity;
+	@JoinColumn(name = "ID_ACTOR", referencedColumnName = "ID")
+	public ActorEntity getActorEntity() {
+		return actorEntity;
 	}
 
-	public void setUsersEntity(UsersEntity usersEntity) {
-		this.usersEntity = usersEntity;
-	}
-	@ManyToOne
-	@JoinColumn(name = "id_group",referencedColumnName = "id", nullable = true)
-	public GroupsEntity getGroupsEntity() {
-		return groupsEntity;
+	public void setActorEntity(ActorEntity actorByIdActor) {
+		this.actorEntity = actorByIdActor;
 	}
 
-	public void setGroupsEntity(GroupsEntity groupsEntity) {
-		this.groupsEntity = groupsEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_MOVIE", referencedColumnName = "ID")
+	public MovieEntity getMovieEntity() {
+		return movieEntity;
+	}
+
+	public void setMovieEntity(MovieEntity movieEntity) {
+		this.movieEntity = movieEntity;
 	}
 
 
@@ -99,14 +102,14 @@ public class UsersGroupEntity implements Serializable{
 		if (obj.getClass() != getClass()) {
 			return false;
 		}
-		UsersGroupEntity rhs = (UsersGroupEntity) obj;
+		ActorsEntity rhs = (ActorsEntity) obj;
 		return new EqualsBuilder()
 				.append(this.id, rhs.id)
 				.append(this.insUsers, rhs.insUsers)
 				.append(this.modifUsers, rhs.modifUsers)
 				.append(this.deleted, rhs.deleted)
-				.append(this.usersEntity, rhs.usersEntity)
-				.append(this.groupsEntity, rhs.groupsEntity)
+				.append(this.actorEntity, rhs.actorEntity)
+				.append(this.movieEntity, rhs.movieEntity)
 				.isEquals();
 	}
 
@@ -117,11 +120,10 @@ public class UsersGroupEntity implements Serializable{
 				.append(insUsers)
 				.append(modifUsers)
 				.append(deleted)
-				.append(usersEntity)
-				.append(groupsEntity)
+				.append(actorEntity)
+				.append(movieEntity)
 				.toHashCode();
 	}
-
 
 	@Override
 	public String toString() {
@@ -130,8 +132,8 @@ public class UsersGroupEntity implements Serializable{
 				.append("insUsers", insUsers)
 				.append("modifUsers", modifUsers)
 				.append("deleted", deleted)
-				.append("usersEntity", usersEntity)
-				.append("groupsEntity", groupsEntity)
+				.append("actorEntity", actorEntity)
+				.append("movieEntity", movieEntity)
 				.toString();
 	}
 }

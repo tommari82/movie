@@ -9,28 +9,29 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created 05.10.14
+ * Created 26.10.15
  *
  * @author Tomas Marianek
  */
 
 @Entity
-@Table(name = "RIGHTS", schema = "MOVIE")
-public class RightsEntity implements Serializable{
-	private static final long serialVersionUID = -2481354860202282786L;
+@Table(name = "ACTOR", schema = "MOVIE", catalog = "MOVIE-DEV")
+public class ActorEntity implements Serializable{
+	private static final long serialVersionUID = 4107355687920250165L;
 	private long id;
-	private String code;
 	private String name;
-	private String description;
+	private String surname;
 	private Long insUsers;
 	private Long modifUsers;
 	private short deleted;
-	private List<GroupRightsEntity> groupRightsEntities;
+	private List<ActorsEntity> actorsEntities;
+
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RIGHTSSQ")
-	@SequenceGenerator(name = "RIGHTSSQ", sequenceName = "movie.sq_rights", initialValue = 1, schema = "movie", allocationSize = 1)
-	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACTORSQ")
+	@SequenceGenerator(name = "ACTORSQ", sequenceName = "movie.SQ_ACTOR", initialValue = 1, schema = "movie", allocationSize = 1)
+
+	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {
 		return id;
 	}
@@ -40,17 +41,7 @@ public class RightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "CODE")
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	@Basic
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable = true, insertable = true, updatable = true, length = 30)
 	public String getName() {
 		return name;
 	}
@@ -60,17 +51,17 @@ public class RightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "DESCRIPTION")
-	public String getDescription() {
-		return description;
+	@Column(name = "SURNAME", nullable = true, insertable = true, updatable = true, length = 30)
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	@Basic
-	@Column(name = "INS_USERS")
+	@Column(name = "INS_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getInsUsers() {
 		return insUsers;
 	}
@@ -80,7 +71,7 @@ public class RightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "MODIF_USERS")
+	@Column(name = "MODIF_USERS", nullable = true, insertable = true, updatable = true)
 	public Long getModifUsers() {
 		return modifUsers;
 	}
@@ -90,7 +81,7 @@ public class RightsEntity implements Serializable{
 	}
 
 	@Basic
-	@Column(name = "DELETED")
+	@Column(name = "DELETED", nullable = false, insertable = true, updatable = true)
 	public short getDeleted() {
 		return deleted;
 	}
@@ -99,15 +90,15 @@ public class RightsEntity implements Serializable{
 		this.deleted = deleted;
 	}
 
-
-	@OneToMany(mappedBy = "rightsEntity")
-	public List<GroupRightsEntity> getGroupRightsEntities() {
-		return groupRightsEntities;
+	@OneToMany(mappedBy = "actorEntity")
+	public List<ActorsEntity> getActorsEntities() {
+		return actorsEntities;
 	}
 
-	public void setGroupRightsEntities(List<GroupRightsEntity> groupRightsEntities) {
-		this.groupRightsEntities = groupRightsEntities;
+	public void setActorsEntities(List<ActorsEntity> actorsesById) {
+		this.actorsEntities = actorsesById;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -120,15 +111,15 @@ public class RightsEntity implements Serializable{
 		if (obj.getClass() != getClass()) {
 			return false;
 		}
-		RightsEntity rhs = (RightsEntity) obj;
+		ActorEntity rhs = (ActorEntity) obj;
 		return new EqualsBuilder()
 				.append(this.id, rhs.id)
-				.append(this.code, rhs.code)
 				.append(this.name, rhs.name)
-				.append(this.description, rhs.description)
+				.append(this.surname, rhs.surname)
 				.append(this.insUsers, rhs.insUsers)
 				.append(this.modifUsers, rhs.modifUsers)
 				.append(this.deleted, rhs.deleted)
+				.append(this.actorsEntities, rhs.actorsEntities)
 				.isEquals();
 	}
 
@@ -136,26 +127,25 @@ public class RightsEntity implements Serializable{
 	public int hashCode() {
 		return new HashCodeBuilder()
 				.append(id)
-				.append(code)
 				.append(name)
-				.append(description)
+				.append(surname)
 				.append(insUsers)
 				.append(modifUsers)
 				.append(deleted)
+				.append(actorsEntities)
 				.toHashCode();
 	}
-
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
 				.append("id", id)
-				.append("code", code)
 				.append("name", name)
-				.append("description", description)
+				.append("surname", surname)
 				.append("insUsers", insUsers)
 				.append("modifUsers", modifUsers)
 				.append("deleted", deleted)
+				.append("actorsEntities", actorsEntities)
 				.toString();
 	}
 }
