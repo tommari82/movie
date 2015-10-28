@@ -15,7 +15,7 @@ import java.sql.Date;
  */
 
 @Entity
-@Table(name = "BORROW", schema = "MOVIE", catalog = "MOVIE-DEV")
+@Table(name = "BORROW", schema = "MOVIE")
 public class BorrowEntity implements Serializable {
 	private static final long serialVersionUID = -9124274831161414392L;
 	private long id;
@@ -30,7 +30,7 @@ public class BorrowEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BORROWSQ")
-	@SequenceGenerator(name = "BORROWSQ", sequenceName = "movie.sq_BORROW", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "BORROWSQ", sequenceName = "SQ_BORROW", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 
 	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {

@@ -29,7 +29,7 @@ public class RightsEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RIGHTSSQ")
-	@SequenceGenerator(name = "RIGHTSSQ", sequenceName = "movie.sq_rights", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "RIGHTSSQ", sequenceName = "SQ_RIGHTS", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID")
 	public long getId() {
 		return id;

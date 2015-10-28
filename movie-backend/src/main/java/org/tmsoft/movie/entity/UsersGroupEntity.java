@@ -27,7 +27,7 @@ public class UsersGroupEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERSGROUPSQ")
-	@SequenceGenerator(name = "USERSGROUPSQ", sequenceName = "movie.sq_USERS_GROUP", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "USERSGROUPSQ", sequenceName = "SQ_USERS_GROUP", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 
 	@Column(name = "ID")
 	public long getId() {

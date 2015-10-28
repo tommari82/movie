@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "MOVIE", schema = "MOVIE", catalog = "MOVIE-DEV")
+@Table(name = "MOVIE", schema = "MOVIE")
 public class MovieEntity implements Serializable{
 	private static final long serialVersionUID = 6522567966847484245L;
 	private long id;
@@ -38,7 +38,7 @@ public class MovieEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MOVIESQ")
-	@SequenceGenerator(name = "MOVIESQ", sequenceName = "movie.SQ_MOVIE", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "MOVIESQ", sequenceName = "SQ_MOVIE", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {
 		return id;
@@ -196,7 +196,7 @@ public class MovieEntity implements Serializable{
 		this.directorsEntities = directorsEntities;
 	}
 
-	@OneToOne(mappedBy = "movieEntity")
+	@OneToOne(mappedBy = "movieEntity",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public DvdEntity getDvdEntity() {
 		return dvdEntity;
 	}

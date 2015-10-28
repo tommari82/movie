@@ -30,7 +30,7 @@ public class UsersEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERSSQ")
-	@SequenceGenerator(name = "USERSSQ", sequenceName = "movie.sq_users", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "USERSSQ", sequenceName = "SQ_USERS", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 
 	@Column(name = "ID")
 	public long getId() {

@@ -27,7 +27,7 @@ public class RegisterItemEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "REISTERITEMSQ")
-	@SequenceGenerator(name = "REISTERITEMSQ", sequenceName = "movie.sq_register_item", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "REISTERITEMSQ", sequenceName = "SQ_REGISTER_ITEM", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID")
 	public Long getId() {
 		return id;

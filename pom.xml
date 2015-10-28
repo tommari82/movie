@@ -14,7 +14,7 @@
 	</modules>
 
 	<properties>
-		<version.springframework>4.2.1.RELEASE</version.springframework>
+		<version.springframework>4.2.2.RELEASE</version.springframework>
 		<version.spring-data-jpa>1.9.0.RELEASE</version.spring-data-jpa>
 		<java.source>1.7</java.source>
 		<java.target>1.7</java.target>
@@ -34,75 +34,12 @@
 			<!-- spring framework -->
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
+				<artifactId>spring-framework-bom</artifactId>
 				<version>${version.springframework}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-expression</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-tx</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-oxm</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc-portlet</artifactId>
-				<version>${version.springframework}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${version.springframework}</version>
-				<scope>test</scope>
-			</dependency>
+
 
 			<dependency>
 				<groupId>org.springframework.data</groupId>
@@ -110,7 +47,7 @@
 				<version>${version.spring-data-jpa}</version>
 			</dependency>
 
-			<!-- LOGGING DEPENDENCIES - LOG4J -->
+		<!--	&lt;!&ndash; LOGGING DEPENDENCIES - LOG4J &ndash;&gt;
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
@@ -139,7 +76,7 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
-			</dependency>
+			</dependency>-->
 			<!-- commons -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>

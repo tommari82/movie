@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "DVD", schema = "MOVIE", catalog = "MOVIE-DEV")
+@Table(name = "DVD", schema = "MOVIE")
 public class DvdEntity implements Serializable{
 	private static final long serialVersionUID = -8839117451912667347L;
 	private long id;
@@ -28,7 +28,7 @@ public class DvdEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DVDSQ")
-	@SequenceGenerator(name = "DVDSQ", sequenceName = "movie.SQ_DVD", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "DVDSQ", sequenceName = "SQ_DVD", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 
 	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {

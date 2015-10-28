@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "DIRECTORS", schema = "MOVIE", catalog = "MOVIE-DEV")
+@Table(name = "DIRECTORS", schema = "MOVIE")
 public class DirectorsEntity implements Serializable{
 	private static final long serialVersionUID = 8742002936218713205L;
 	private long id;
@@ -26,7 +26,7 @@ public class DirectorsEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DIRECTORSSQ")
-	@SequenceGenerator(name = "DIRECTORSSQ", sequenceName = "movie.SQ_DIRECTORS", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "DIRECTORSSQ", sequenceName = "SQ_DIRECTORS", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 
 	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {

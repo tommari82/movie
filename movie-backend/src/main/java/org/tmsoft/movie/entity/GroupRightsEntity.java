@@ -27,7 +27,7 @@ public class GroupRightsEntity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GROUPRIGHTSSQ")
-	@SequenceGenerator(name = "GROUPRIGHTSSQ", sequenceName = "movie.SQ_GROUP_RIGHTS", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "GROUPRIGHTSSQ", sequenceName = "SQ_GROUP_RIGHTS", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID")
 	public long getId() {
 		return id;

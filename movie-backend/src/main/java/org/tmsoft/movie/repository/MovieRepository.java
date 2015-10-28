@@ -2,14 +2,17 @@ package org.tmsoft.movie.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.tmsoft.movie.entity.ParamvariableEntity;
+import org.tmsoft.movie.entity.MovieEntity;
 
 /**
- * Created 05.10.14
+ * Created 26.10.15
  *
  * @author Tomas Marianek
  */
 
 @Repository
-public interface ParamVariableRepository extends JpaRepository<ParamvariableEntity, Long>{
+public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
+
+
+
 }

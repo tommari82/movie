@@ -39,8 +39,7 @@ public class PersonEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSONSQ")
-	@SequenceGenerator(name = "PERSONSQ", sequenceName = "movie.sq_person", initialValue = 1, schema = "movie", allocationSize = 1)
-
+	@SequenceGenerator(name = "PERSONSQ", sequenceName = "SQ_PERSON", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID", nullable = false, insertable = true, updatable = true)
 	public long getId() {
 		return id;

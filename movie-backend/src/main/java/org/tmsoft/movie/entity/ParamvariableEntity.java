@@ -34,7 +34,7 @@ public class ParamvariableEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARAMVARIABLESQ")
-	@SequenceGenerator(name = "PARAMVARIABLESQ", sequenceName = "movie.sq_paramvariable", initialValue = 1, schema = "movie", allocationSize = 1)
+	@SequenceGenerator(name = "PARAMVARIABLESQ", sequenceName = "SQ_PARAMVARIABLE", initialValue = 1, schema = "MOVIE", allocationSize = 1)
 	@Column(name = "ID")
 	public long getId() {
 		return id;
